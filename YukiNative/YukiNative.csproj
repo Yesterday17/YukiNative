@@ -19,6 +19,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="CommandLineParser" Version="2.9.0-preview1" />
     <PackageReference Include="LibNMeCab" Version="0.10.0-RC2" />
     <PackageReference Include="LibNMeCab.IpaDicBin" Version="0.10.0-RC2" />
     <PackageReference Include="WebSocketSharp" Version="1.0.3-rc11" />
