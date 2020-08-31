@@ -54,6 +54,7 @@ namespace YukiNative.utils {
       {'ば', 'a'}, {'び', 'i'}, {'ぶ', 'u'}, {'べ', 'e'}, {'ぼ', 'o'},
       {'ぱ', 'a'}, {'ぴ', 'i'}, {'ぷ', 'u'}, {'ぺ', 'e'}, {'ぽ', 'o'},
       {'ぁ', 'a'}, {'ぃ', 'i'}, {'ゔ', 'u'}, {'ぇ', 'e'}, {'ぉ', 'o'},
+      {'ょ', 'o'},
     };
 
     private static bool IsCharLongDash(char ch) {
