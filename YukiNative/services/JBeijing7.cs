@@ -15,7 +15,7 @@ namespace YukiNative.services {
       string from, StringBuilder to, ref int toCapacity,
       StringBuilder buffer, ref int bufferCapacity);
 
-    private static string Translate(String text, uint toCodePage = 936) {
+    private static string Translate(string text, uint toCodePage = 936) {
       var result = new StringBuilder(text.Length * 8);
       var buf = new StringBuilder(text.Length * 8);
       var toCapacity = result.Capacity;

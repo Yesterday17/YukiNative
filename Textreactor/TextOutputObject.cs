@@ -1,27 +1,27 @@
 ﻿namespace Textreactor {
   public class TextOutputObject {
-    private ulong _handle;
-    private ulong _pid;
-    private ulong _addr;
-    private ulong _ctx;
-    private ulong _ctx2;
-    private string _name;
-    private string _code;
-    public string Text;
+    public readonly ulong handle;
+    public readonly ulong pid;
+    public readonly ulong addr;
+    public readonly ulong ctx;
+    public readonly ulong ctx2;
+    public readonly string name;
+    public readonly string code;
+    public string text { get; private set; }
 
-    public TextOutputObject(
+    private TextOutputObject(
       ulong handle, ulong pid, ulong addr,
       ulong ctx, ulong ctx2,
       string name, string code, string text = ""
     ) {
-      _handle = handle;
-      _pid = pid;
-      _addr = addr;
-      _ctx = ctx;
-      _ctx2 = ctx2;
-      _name = name;
-      _code = code;
-      Text = text;
+      this.handle = handle;
+      this.pid = pid;
+      this.addr = addr;
+      this.ctx = ctx;
+      this.ctx2 = ctx2;
+      this.name = name;
+      this.code = code;
+      this.text = text;
     }
 
     public static TextOutputObject Parse(string line) {
@@ -36,7 +36,7 @@
     }
 
     public void AppendText(string append) {
-      Text += append + "\n";
+      text += append + "\n";
     }
 
     private static ulong Hex2Num(string hex) {

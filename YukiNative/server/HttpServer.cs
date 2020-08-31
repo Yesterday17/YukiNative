@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
+using YukiNative.services;
 
 namespace YukiNative.server {
   public delegate Task RequestDelegate(HttpServer server, Request request, Response response);
@@ -48,16 +49,18 @@ namespace YukiNative.server {
       while (_running) {
         var context = await _listener.GetContextAsync();
 
-        var request = new Request(context.Request);
+        var request = new Request(context.Request, context);
         var response = new Response(context.Response);
-        if (_routes.ContainsKey(request.Path)) {
-          try {
-            await _routes[request.Path].Invoke(this, request, response);
-          }
-          catch (Exception e) {
-            response.StatusCode(400);
-            await response.WriteText(e.StackTrace);
-          }
+        if (!_routes.ContainsKey(request.Path)) {
+          continue;
+        }
+
+        try {
+          await _routes[request.Path].Invoke(this, request, response);
+        }
+        catch (Exception e) {
+          response.StatusCode(400);
+          await response.WriteText(e.StackTrace);
         }
 
         response.Close();

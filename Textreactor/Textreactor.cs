@@ -64,7 +64,6 @@ namespace Textreactor {
         return;
       }
 
-      Console.WriteLine(e.Data);
       OnData(e.Data);
     }
 
