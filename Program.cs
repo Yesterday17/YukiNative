@@ -32,7 +32,8 @@ namespace YukiNative {
         var server = new HttpServer();
         server
           .AddRoute("/library", Library.AddLibraryService)
-          .AddRoute("/translate", JBeijing7.JBeijing7Service)
+          .AddRoute("/jbeijing7", JBeijing7.JBeijing7Service)
+          .AddRoute("/mecab", Mecab.MecabService)
           .AddRoute("/shutdown", (httpServer, request, response) => {
             // Close response manually before server stops
             response.Close();
