@@ -50,7 +50,7 @@ namespace YukiNative.services {
     }
 
     public static async Task MecabService(HttpServer server, Request request, Response response) {
-      await response.WriteText(MecabTag(request.Body));
+      await response.WriteText(await Task.Run(() => MecabTag(request.Body)));
     }
   }
 }

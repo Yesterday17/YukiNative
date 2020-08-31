@@ -23,21 +23,23 @@ namespace YukiNative.services {
     private static readonly BufferBlock<string> ToPush = new BufferBlock<string>();
     private static WebSocketContext _context;
 
-    private static async Task HandleWebSocket(WebSocketContext context) {
-      _context = context;
+    private static void HandleWebSocket(WebSocketContext context) {
+      new Thread(() => {
+        _context = context;
 
-      var ws = context.WebSocket;
-      while (ws.State == WebSocketState.Open) {
-        var data = await ToPush.ReceiveAsync();
-        await ws.SendAsync(
-          new ArraySegment<byte>(Encoding.UTF8.GetBytes(data)),
-          WebSocketMessageType.Text,
-          true,
-          CancellationToken.None
-        );
-      }
+        var ws = context.WebSocket;
+        while (ws.State == WebSocketState.Open) {
+          var data = ToPush.Receive();
+          ws.SendAsync(
+            new ArraySegment<byte>(Encoding.UTF8.GetBytes(data)),
+            WebSocketMessageType.Text,
+            true,
+            CancellationToken.None
+          ).Wait();
+        }
 
-      _context = null;
+        _context = null;
+      }).Start();
     }
 
     private static void Interrupt() {
@@ -61,9 +63,9 @@ namespace YukiNative.services {
 
     public static async Task WebSocketService(HttpServer server, Request request, Response response) {
       if (request.IsWebsocket) {
-        var wsContext = await request.AcceptWebSocketAsync(null);
+        var wsContext = await request.AcceptWebSocketAsync();
         Interrupt();
-        await HandleWebSocket(wsContext);
+        HandleWebSocket(wsContext);
       }
       else {
         response.StatusCode(400);

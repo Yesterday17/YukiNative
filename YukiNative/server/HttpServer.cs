@@ -63,7 +63,9 @@ namespace YukiNative.server {
           await response.WriteText(e.StackTrace);
         }
 
-        response.Close();
+        if (!request.IsWebsocket) {
+          response.Close();
+        }
       }
     }
   }
