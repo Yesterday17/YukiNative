@@ -21,7 +21,7 @@ namespace YukiNative.services {
       try {
         return KanjiToAbbrMap[abbr];
       }
-      catch (Exception e) {
+      catch {
         return "unknown";
       }
     }

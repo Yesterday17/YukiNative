@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace YukiNative.server {
   public delegate Task RequestDelegate(HttpServer server, Request request, Response response);
 
-  public delegate void SyncRequestDelegate(HttpServer server, Request request, Response response);
+  public delegate void RequestDelegateSync(HttpServer server, Request request, Response response);
 
   public class HttpServer {
     private readonly HttpListener _listener;
@@ -34,7 +34,7 @@ namespace YukiNative.server {
       return this;
     }
 
-    public HttpServer AddRoute(string route, SyncRequestDelegate @delegate) {
+    public HttpServer AddRoute(string route, RequestDelegateSync @delegate) {
       return AddRoute(route, (server, request, response) => {
         @delegate(server, request, response);
         return Task.CompletedTask;
@@ -52,7 +52,7 @@ namespace YukiNative.server {
         var response = new Response(context.Response);
         if (_routes.ContainsKey(request.Path)) {
           try {
-            _routes[request.Path].Invoke(this, request, response);
+            await _routes[request.Path].Invoke(this, request, response);
           }
           catch (Exception e) {
             response.StatusCode(400);
