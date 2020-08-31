@@ -31,7 +31,14 @@ namespace YukiNative {
       if (mode == WorkMode.Http) {
         var server = new HttpServer();
         server
+          .AddRoute("/library", Library.AddLibraryService)
           .AddRoute("/translate", JBeijing7.JBeijing7Service)
+          .AddRoute("/shutdown", (httpServer, request, response) => {
+            // Close response manually before server stops
+            response.Close();
+            // Stop server
+            httpServer.Stop();
+          })
           .Listen("http://localhost:8080/")
           .GetAwaiter()
           .GetResult();

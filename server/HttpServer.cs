@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace YukiNative.server {
@@ -46,7 +47,15 @@ namespace YukiNative.server {
           continue;
         }
 
-        _routes[request.Path].Invoke(this, request, response);
+        try {
+          _routes[request.Path].Invoke(this, request, response);
+        }
+        catch (Exception e) {
+          var data = Encoding.UTF8.GetBytes(e.StackTrace);
+          response.StatusCode = 400;
+          await response.OutputStream.WriteAsync(data, 0, data.Length);
+        }
+
         response.Close();
       }
     }
