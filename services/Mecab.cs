@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net;
-using System.Text;
+using System.Threading.Tasks;
 using NMeCab.Specialized;
 using YukiNative.server;
 using YukiNative.utils;
@@ -50,9 +49,8 @@ namespace YukiNative.services {
       return result.Substring(1);
     }
 
-    public static async void MecabService(HttpServer server, Request request, HttpListenerResponse response) {
-      var data = Encoding.UTF8.GetBytes(MecabTag(request.Body));
-      await response.OutputStream.WriteAsync(data, 0, data.Length);
+    public static async Task MecabService(HttpServer server, Request request, Response response) {
+      await response.WriteText(MecabTag(request.Body));
     }
   }
 }

@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace YukiNative.server {
-  public delegate void RequestDelegate(HttpServer server, Request request, HttpListenerResponse response);
+  public delegate Task RequestDelegate(HttpServer server, Request request, Response response);
+
+  public delegate void SyncRequestDelegate(HttpServer server, Request request, Response response);
 
   public class HttpServer {
     private readonly HttpListener _listener;
@@ -33,6 +34,13 @@ namespace YukiNative.server {
       return this;
     }
 
+    public HttpServer AddRoute(string route, SyncRequestDelegate @delegate) {
+      return AddRoute(route, (server, request, response) => {
+        @delegate(server, request, response);
+        return Task.CompletedTask;
+      });
+    }
+
     public async Task Listen(string prefix) {
       _listener.Prefixes.Add(prefix);
       _listener.Start();
@@ -41,19 +49,15 @@ namespace YukiNative.server {
         var context = await _listener.GetContextAsync();
 
         var request = new Request(context.Request);
-        var response = context.Response;
-        if (!_routes.ContainsKey(request.Path)) {
-          response.OutputStream.Close();
-          continue;
-        }
-
-        try {
-          _routes[request.Path].Invoke(this, request, response);
-        }
-        catch (Exception e) {
-          var data = Encoding.UTF8.GetBytes(e.StackTrace);
-          response.StatusCode = 400;
-          await response.OutputStream.WriteAsync(data, 0, data.Length);
+        var response = new Response(context.Response);
+        if (_routes.ContainsKey(request.Path)) {
+          try {
+            _routes[request.Path].Invoke(this, request, response);
+          }
+          catch (Exception e) {
+            response.StatusCode(400);
+            await response.WriteText(e.StackTrace);
+          }
         }
 
         response.Close();

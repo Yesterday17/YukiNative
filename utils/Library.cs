@@ -1,5 +1,4 @@
-﻿using System.Net;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 using YukiNative.server;
 
 namespace YukiNative.utils {
@@ -7,7 +6,7 @@ namespace YukiNative.utils {
     [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
     public static extern bool SetDllDirectory(string lpPathName);
 
-    public static void AddLibraryService(HttpServer server, Request request, HttpListenerResponse response) {
+    public static void AddLibraryService(HttpServer server, Request request, Response response) {
       SetDllDirectory(request.Body);
     }
   }

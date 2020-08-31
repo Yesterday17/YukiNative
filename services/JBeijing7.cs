@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading.Tasks;
 using YukiNative.server;
 
 namespace YukiNative.services {
@@ -24,9 +24,8 @@ namespace YukiNative.services {
       return result.ToString();
     }
 
-    public static async void JBeijing7Service(HttpServer server, Request request, HttpListenerResponse response) {
-      var data = Encoding.UTF8.GetBytes(Translate(request.Body));
-      await response.OutputStream.WriteAsync(data, 0, data.Length);
+    public static async Task JBeijing7Service(HttpServer server, Request request, Response response) {
+      await response.WriteText(Translate(request.Body));
     }
   }
 }

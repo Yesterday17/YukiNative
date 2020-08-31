@@ -3,7 +3,7 @@ using YukiNative.services;
 using YukiNative.utils;
 
 namespace YukiNative {
-  enum WorkMode {
+  internal enum WorkMode {
     Http,
     Websocket
   }
@@ -34,6 +34,7 @@ namespace YukiNative {
           .AddRoute("/library", Library.AddLibraryService)
           .AddRoute("/jbeijing7", JBeijing7.JBeijing7Service)
           .AddRoute("/mecab", Mecab.MecabService)
+          .AddRoute("./ping", (_, __, response) => response.WriteText("pong"))
           .AddRoute("/shutdown", (httpServer, request, response) => {
             // Close response manually before server stops
             response.Close();
