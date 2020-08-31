@@ -46,7 +46,7 @@ namespace YukiNative.services {
     }
 
 
-    public const string PushTextreactorResult = "textreactor";
+    public const string PushTextractorResult = "textractor";
     public const string PushWindowEvent = "window";
 
     private static void PushMessage(string msg) {

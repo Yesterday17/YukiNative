@@ -1,4 +1,4 @@
-﻿namespace Textreactor {
+﻿namespace Textractor {
   public class TextOutputObject {
     public readonly ulong handle;
     public readonly ulong pid;

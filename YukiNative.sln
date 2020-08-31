@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YukiNative", "YukiNative\YukiNative.csproj", "{42BE7B3B-8F57-4A06-8BE4-67E15EDE49C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Textreactor", "Textreactor\Textreactor.csproj", "{D75BC5EA-4E12-47EF-9FD2-CAD439BCE0EB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Textractor", "Textractor\Textractor.csproj", "{D75BC5EA-4E12-47EF-9FD2-CAD439BCE0EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

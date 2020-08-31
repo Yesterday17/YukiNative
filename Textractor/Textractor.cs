@@ -1,19 +1,16 @@
-﻿using System;
-using System.Data;
+﻿using System.Data;
 using System.Diagnostics;
 using System.Text;
 
-namespace Textreactor {
-  public delegate void TextreactorOutputDelegate(TextOutputObject output);
+namespace Textractor {
+  public delegate void TextractorOutputDelegate(TextOutputObject output);
 
-  public class Textreactor {
+  public class Textractor {
     private readonly Process _cliProcess;
     private TextOutputObject _currentOutput;
-    public TextreactorOutputDelegate OnTextreactorOutput;
+    public TextractorOutputDelegate OnTextractorOutput;
 
-    private string _buffer = "";
-
-    public Textreactor(string cli) {
+    public Textractor(string cli) {
       var cliInfo = new ProcessStartInfo {
         FileName = cli,
         UseShellExecute = false,
@@ -79,7 +76,7 @@ namespace Textreactor {
         _currentOutput.AppendText(line);
       }
 
-      OnTextreactorOutput?.Invoke(_currentOutput);
+      OnTextractorOutput?.Invoke(_currentOutput);
     }
   }
 }

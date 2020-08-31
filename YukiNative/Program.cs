@@ -9,8 +9,8 @@ namespace YukiNative {
     private static void Main(string[] args) {
       Parser.Default.ParseArguments<Config>(args)
         .WithParsed(options => {
-          // Launch Textreactor
-          services.Textreactor.InitializeTextreactor(options.TextreactorLocation);
+          // Launch Textractor
+          services.Textractor.InitializeTextractor(options.TextractorLocation);
 
           // Load directories
           foreach (var dir in options.DllDirectories) {
@@ -23,7 +23,7 @@ namespace YukiNative {
             .AddRoute("/library", Library.AddLibraryService)
             .AddRoute("/jbeijing7", JBeijing7.JBeijing7Service)
             .AddRoute("/mecab", Mecab.MecabService)
-            .AddRoute("/textreactor", services.Textreactor.TextreactorService)
+            .AddRoute("/textractor", services.Textractor.TextractorService)
             .AddRoute("/ping", (_, __, response) => response.WriteText("pong"))
             .AddRoute("/shutdown", (httpServer, request, response) => {
               // Close response manually before server stops

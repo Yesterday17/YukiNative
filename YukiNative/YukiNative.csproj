@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Textreactor\Textreactor.csproj" />
+    <ProjectReference Include="..\Textractor\Textractor.csproj" />
   </ItemGroup>
 
 </Project>
