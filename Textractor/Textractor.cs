@@ -81,7 +81,7 @@ namespace Textractor {
       Console.WriteLine(_currentOutput.Text);
 #endif
 
-      OnTextractorOutput?.Invoke(_currentOutput);
+      OnTextractorOutput(_currentOutput);
     }
   }
 }

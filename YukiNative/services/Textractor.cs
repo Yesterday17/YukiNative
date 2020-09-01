@@ -7,9 +7,11 @@ namespace YukiNative.services {
 
     public static void InitializeTextractor(string cli) {
       _instance = new global::Textractor.Textractor(cli);
-      _instance.OnTextractorOutput += OnTextractorOutput;
+      _instance.OnTextractorOutput += Callback;
       _instance.Start();
     }
+
+    private static readonly TextractorOutputDelegate Callback = OnTextractorOutput;
 
     public static void TextractorService(HttpServer server, Request request, Response response) {
       var index = request.Body.IndexOf('|');

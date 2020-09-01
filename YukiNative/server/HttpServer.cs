@@ -50,6 +50,8 @@ namespace YukiNative.server {
         var request = new Request(context.Request, context);
         var response = new Response(context.Response);
         if (!_routes.ContainsKey(request.Path)) {
+          response.StatusCode(404);
+          response.Close();
           continue;
         }
 
@@ -59,7 +61,7 @@ namespace YukiNative.server {
 #endif
 
         try {
-          await _routes[request.Path].Invoke(this, request, response);
+          await _routes[request.Path](this, request, response);
         }
         catch (Exception e) {
           response.StatusCode(400);
