@@ -69,5 +69,13 @@ namespace YukiNative.services {
       var ret = DJC_CloseAllUserDic();
       return ret == 0;
     }
+
+    public static void JBeijing7OpenUserDictService(HttpServer server, Request request, Response response) {
+      var path = request.Body.Split('\n');
+      var success = OpenUserDict(path);
+      if (!success) {
+        response.StatusCode(400);
+      }
+    }
   }
 }

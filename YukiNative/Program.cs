@@ -22,6 +22,7 @@ namespace YukiNative {
             .AddRoute("/ws", WebsocketService.WebSocketService)
             .AddRoute("/library", Library.AddLibraryService)
             .AddRoute("/jbeijing7", JBeijing7.JBeijing7TranslateService)
+            .AddRoute("/jbeijing7/dict", JBeijing7.JBeijing7OpenUserDictService)
             .AddRoute("/mecab", Mecab.MecabService)
             .AddRoute("/textractor", services.Textractor.TextractorService)
             .AddRoute("/ping", (_, __, response) => response.WriteText("pong"))

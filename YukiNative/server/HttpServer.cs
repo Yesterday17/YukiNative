@@ -36,10 +36,8 @@ namespace YukiNative.server {
     }
 
     public HttpServer AddRoute(string route, RequestDelegateSync @delegate) {
-      return AddRoute(route, (server, request, response) => {
-        @delegate(server, request, response);
-        return Task.CompletedTask;
-      });
+      return AddRoute(route,
+        async (server, request, response) => { await Task.Run(() => { @delegate(server, request, response); }); });
     }
 
     public async Task Listen(string prefix) {
