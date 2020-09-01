@@ -21,7 +21,7 @@ namespace YukiNative {
           var listen = server
             .AddRoute("/ws", WebsocketService.WebSocketService)
             .AddRoute("/library", Library.AddLibraryService)
-            .AddRoute("/jbeijing7", JBeijing7.JBeijing7Service)
+            .AddRoute("/jbeijing7", JBeijing7.JBeijing7TranslateService)
             .AddRoute("/mecab", Mecab.MecabService)
             .AddRoute("/textractor", services.Textractor.TextractorService)
             .AddRoute("/ping", (_, __, response) => response.WriteText("pong"))
