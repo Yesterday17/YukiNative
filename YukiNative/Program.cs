@@ -41,6 +41,8 @@ namespace YukiNative {
             .AddRoute("/mecab", Mecab.MecabService)
             .AddRoute("/textractor", services.Textractor.TextractorService)
             .AddRoute("/win32/exit", Win32.WatchProcessExitService)
+            .AddRoute("/win32/minimize", Win32.EventMinimizeService)
+            .AddRoute("/win32/restore", Win32.EventRestoreService)
             .AddRoute("/ping", (_, __, response) => response.WriteText("pong"))
             .AddRoute("/shutdown", (httpServer, request, response) => {
               // Close response manually before server stops
@@ -51,7 +53,9 @@ namespace YukiNative {
             .Listen(options.ListenAddr);
 
           Console.WriteLine("YukiNative listening on {0}...", options.ListenAddr);
-          listen.GetAwaiter().GetResult();
+
+          // Message Loop
+          Win32.MessageLoop.Run();
           server.Close();
         });
     }
