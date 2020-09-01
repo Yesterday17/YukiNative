@@ -5,7 +5,7 @@ namespace YukiNative.utils {
   public static class Json {
     private static readonly JsonSerializerSettings Settings = new JsonSerializerSettings {
       ContractResolver = new DefaultContractResolver {
-        NamingStrategy = new CamelCaseNamingStrategy()
+        NamingStrategy = new CamelCaseNamingStrategy(true, true, true),
       }
     };
 
