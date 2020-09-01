@@ -8,6 +8,8 @@
 
 由此，`YukiNative` 的目标就是将 `YUKI` 中平台相关的部分解耦，把必须由 `Windows` 完成的任务交给 `Windows(Wine)`，而其他部分则交由各个操作系统自行解决。
 
+得益于这种解耦，现在 `YUKI` 可以跟随 `Node` 和 `Electron` 的版本更新了。
+
 ## 模式
 
 `YukiNative` 计划有三个模式：`http` 模式、`WebSocket` 模式和 `std` 模式。
@@ -29,6 +31,12 @@
 这种模式通过 `stdin` 和 `stdout` 进行通信。`YukiNative` 通过 `stdin` 接收请求，并通过 `stdout` 向 `YUKI` 发送信息。
 
 这种模式尚未实现。
+
+## `.NET Framework`？
+
+是的，这个项目使用的是 `.NET Framework` 而不是 `.NET Core`。由于在 `.NET Core` 下无法进行调试，我们只能切换到 `.NET Framework` 下。
+
+不过在代码书写过程中已经充分考虑到了对 `.NET Core` 的兼容性，因此 `.NET Core` 应该可以正常编译。
 
 ## `YUKI`
 
