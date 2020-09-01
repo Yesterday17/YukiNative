@@ -36,7 +36,7 @@
     }
 
     public void AppendText(string append) {
-      text += append + "\n";
+      text += "\n" + append;
     }
 
     private static ulong Hex2Num(string hex) {

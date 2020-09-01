@@ -53,6 +53,11 @@ namespace YukiNative.server {
           continue;
         }
 
+#if DEBUG
+        Console.WriteLine("{0} {1}", request.Method, request.Path);
+        Console.WriteLine(request.Body);
+#endif
+
         try {
           await _routes[request.Path].Invoke(this, request, response);
         }

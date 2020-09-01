@@ -52,7 +52,7 @@ namespace YukiNative.services {
     public const string PushWindowEvent = "window";
 
     private static void PushMessage(string msg) {
-      if (_context != null) {
+      if (_context != null && _context.WebSocket.State == WebSocketState.Open) {
         ToPush.Post(msg);
       }
     }

@@ -21,7 +21,7 @@ namespace YukiNative.services {
         _instance.Hook(int.Parse(pid), code);
       }
       else if (index == pid.Length - 1) {
-        _instance.Attach(int.Parse(pid.Substring(0, index - 1)));
+        _instance.Attach(int.Parse(pid.Substring(0, index)));
       }
       else {
         _instance.Attach(int.Parse(pid));
