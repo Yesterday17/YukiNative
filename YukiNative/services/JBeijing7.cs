@@ -8,10 +8,8 @@ namespace YukiNative.services {
   /// <summary>
   /// Credits: https://www.lgztx.com/?p=93
   /// </summary>
-  [StructLayout(LayoutKind.Sequential)]
   public static class JBeijing7 {
-    [DllImport("JBJCT.dll", CharSet = CharSet.Unicode,
-      CallingConvention = CallingConvention.Cdecl)]
+    [DllImport("JBJCT.dll", CharSet = CharSet.Unicode)]
     private static extern int JC_Transfer_Unicode(
       int hwnd, uint fromCordPage, uint toCodePage,
       int unknown, int unknown2,
@@ -20,19 +18,20 @@ namespace YukiNative.services {
 
     private const uint SimplifiedChineseCodePage = 936;
     private const uint TraditionalChineseCodePage = 950;
+    private const int BufferSize = 3000;
 
     public static string Translate(string text, bool simplified = true) {
-      var result = new StringBuilder(text.Length * 8);
-      var buf = new StringBuilder(text.Length * 8);
+      var result = new StringBuilder(BufferSize);
+      var buf = new StringBuilder(BufferSize);
       var toCapacity = result.Capacity;
-      var bufferCapacity = buf.Capacity;
+      var bufCapacity = buf.Capacity;
       var toCodePage = simplified ? SimplifiedChineseCodePage : TraditionalChineseCodePage;
-      JC_Transfer_Unicode(0, 932, toCodePage, 1, 1, text, result, ref toCapacity, buf, ref bufferCapacity);
+      JC_Transfer_Unicode(0, 932, toCodePage, 1, 1, text, result, ref toCapacity, buf, ref bufCapacity);
       return result.ToString();
     }
 
     public static async Task JBeijing7TranslateService(HttpServer server, Request request, Response response) {
-      await response.WriteText(Translate(request.Body));
+      await response.WriteText(await Task.Run(() => Translate(request.Body)));
     }
 
 

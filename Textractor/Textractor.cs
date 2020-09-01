@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Diagnostics;
 using System.Text;
 
@@ -40,7 +41,7 @@ namespace Textractor {
       Execute($"{code} -P{pid}");
     }
 
-    public void Execute(string cmd) {
+    private void Execute(string cmd) {
       _cliProcess.StandardInput.WriteLine(cmd);
     }
 
@@ -75,6 +76,10 @@ namespace Textractor {
       else {
         _currentOutput.AppendText(line);
       }
+
+#if DEBUG
+      Console.WriteLine(_currentOutput.text);
+#endif
 
       OnTextractorOutput?.Invoke(_currentOutput);
     }

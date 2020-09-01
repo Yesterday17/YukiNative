@@ -23,23 +23,21 @@ namespace YukiNative.services {
     private static readonly BufferBlock<string> ToPush = new BufferBlock<string>();
     private static WebSocketContext _context;
 
-    private static void HandleWebSocket(WebSocketContext context) {
-      new Thread(() => {
-        _context = context;
+    private static async Task HandleWebSocket(WebSocketContext context) {
+      _context = context;
 
-        var ws = context.WebSocket;
-        while (ws.State == WebSocketState.Open) {
-          var data = ToPush.Receive();
-          ws.SendAsync(
-            new ArraySegment<byte>(Encoding.UTF8.GetBytes(data)),
-            WebSocketMessageType.Text,
-            true,
-            CancellationToken.None
-          ).Wait();
-        }
+      var ws = context.WebSocket;
+      while (ws.State == WebSocketState.Open) {
+        var data = await ToPush.ReceiveAsync();
+        ws.SendAsync(
+          new ArraySegment<byte>(Encoding.UTF8.GetBytes(data)),
+          WebSocketMessageType.Text,
+          true,
+          CancellationToken.None
+        ).Wait();
+      }
 
-        _context = null;
-      }).Start();
+      _context = null;
     }
 
     private static void Interrupt() {
