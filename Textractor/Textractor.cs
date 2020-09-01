@@ -78,7 +78,7 @@ namespace Textractor {
       }
 
 #if DEBUG
-      Console.WriteLine(_currentOutput.text);
+      Console.WriteLine(_currentOutput.Text);
 #endif
 
       OnTextractorOutput?.Invoke(_currentOutput);

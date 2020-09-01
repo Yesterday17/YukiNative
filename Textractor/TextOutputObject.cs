@@ -1,27 +1,28 @@
-﻿namespace Textractor {
+﻿// ReSharper disable MemberCanBePrivate.Global
+namespace Textractor {
   public class TextOutputObject {
-    public readonly ulong handle;
-    public readonly ulong pid;
-    public readonly ulong addr;
-    public readonly ulong ctx;
-    public readonly ulong ctx2;
-    public readonly string name;
-    public readonly string code;
-    public string text { get; private set; }
+    public readonly ulong Handle;
+    public readonly ulong Pid;
+    public readonly ulong Addr;
+    public readonly ulong Ctx;
+    public readonly ulong Ctx2;
+    public readonly string Name;
+    public readonly string Code;
+    public string Text { get; private set; }
 
     private TextOutputObject(
       ulong handle, ulong pid, ulong addr,
       ulong ctx, ulong ctx2,
       string name, string code, string text = ""
     ) {
-      this.handle = handle;
-      this.pid = pid;
-      this.addr = addr;
-      this.ctx = ctx;
-      this.ctx2 = ctx2;
-      this.name = name;
-      this.code = code;
-      this.text = text;
+      this.Handle = handle;
+      this.Pid = pid;
+      this.Addr = addr;
+      this.Ctx = ctx;
+      this.Ctx2 = ctx2;
+      this.Name = name;
+      this.Code = code;
+      this.Text = text;
     }
 
     public static TextOutputObject Parse(string line) {
@@ -36,7 +37,7 @@
     }
 
     public void AppendText(string append) {
-      text += "\n" + append;
+      Text += "\n" + append;
     }
 
     private static ulong Hex2Num(string hex) {

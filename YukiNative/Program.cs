@@ -40,6 +40,7 @@ namespace YukiNative {
             .AddRoute("/jbeijing7/dict", JBeijing7.JBeijing7OpenUserDictService)
             .AddRoute("/mecab", Mecab.MecabService)
             .AddRoute("/textractor", services.Textractor.TextractorService)
+            .AddRoute("/win32/exit", Win32.WatchProcessExitService)
             .AddRoute("/ping", (_, __, response) => response.WriteText("pong"))
             .AddRoute("/shutdown", (httpServer, request, response) => {
               // Close response manually before server stops
