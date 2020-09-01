@@ -6,7 +6,9 @@ using YukiNative.server;
 
 namespace YukiNative.services {
   /// <summary>
-  /// Credits: https://www.lgztx.com/?p=93
+  /// Credits
+  /// https://github.com/Artikash/VNR-Core/blob/6ed038bda9dcd35696040bd45d31afa6a30e8978/py/libs/jbeijing/jbjct.py
+  /// https://www.lgztx.com/?p=93
   /// </summary>
   public static class JBeijing7 {
     [DllImport("JBJCT.dll", CharSet = CharSet.Unicode)]

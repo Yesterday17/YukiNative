@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Threading;
 using CommandLine;
 using YukiNative.server;
 using YukiNative.services;
@@ -7,8 +9,20 @@ using YukiNative.utils;
 namespace YukiNative {
   internal static class Program {
     private static void Main(string[] args) {
+      using var mutex = new Mutex(true, "YukiNative", out var createNew);
+
       Parser.Default.ParseArguments<Config>(args)
         .WithParsed(options => {
+          // Kill old process
+          if (!createNew) {
+            var current = Process.GetCurrentProcess();
+            foreach (var process in Process.GetProcessesByName(current.ProcessName)) {
+              if (process.Id != current.Id) {
+                process.Kill();
+              }
+            }
+          }
+
           // Launch Textractor
           services.Textractor.InitializeTextractor(options.TextractorLocation);
 
@@ -17,6 +31,7 @@ namespace YukiNative {
             Library.SetDllDirectory(dir);
           }
 
+          // Launch server
           var server = new HttpServer();
           var listen = server
             .AddRoute("/ws", WebsocketService.WebSocketService)
