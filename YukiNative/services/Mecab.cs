@@ -34,13 +34,11 @@ namespace YukiNative.services {
         var kana = "";
         var abbr = KanjiToAbbr(node.PartsOfSpeech);
 
-        if (abbr.Equals("w")) {
-          continue;
-        }
-
-        kana = WanaKana.KatakanaToHiragana(node.Pronounciation);
-        if (kana.Equals(node.Surface)) {
-          kana = "";
+        if (!abbr.Equals("w")) {
+          kana = WanaKana.KatakanaToHiragana(node.Pronounciation);
+          if (kana.Equals(node.Surface)) {
+            kana = "";
+          }
         }
 
         result += $"|{node.Surface},{abbr},{kana}";
