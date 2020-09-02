@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -28,6 +27,14 @@ namespace YukiNative.services {
     public static void WatchProcessExitService(HttpServer server, Request request, Response response) {
       var pid = int.Parse(request.Body);
       WatchProcessExit(pid);
+    }
+
+    [DllImport("kernel32.dll", SetLastError = true, CallingConvention = CallingConvention.Winapi)]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static extern bool IsWow64Process([In] IntPtr process, [Out] out bool wow64Process);
+
+    public static bool IsWin64Emulator(IntPtr handle) {
+      return IsWow64Process(handle, out var ret) && ret;
     }
 
     /////////////////////////////////////////////////////////////////////////

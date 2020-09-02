@@ -45,6 +45,8 @@
     <ItemGroup>
       <Content Include="Textractor\texthook.dll" CopyToOutputDirectory="PreserveNewest"/>
       <Content Include="Textractor\TextractorCLI.exe" CopyToOutputDirectory="PreserveNewest"/>
+      <Content Include="Textractor\x64\texthook.dll" CopyToOutputDirectory="PreserveNewest"/>
+      <Content Include="Textractor\x64\TextractorCLI.exe" CopyToOutputDirectory="PreserveNewest"/>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

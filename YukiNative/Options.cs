@@ -6,8 +6,8 @@ namespace YukiNative {
     [Option('l', "listen", HelpText = "Local address to listen.", Default = "http://localhost:8080/")]
     public string ListenAddr { get; set; }
 
-    [Option('t', "textractor", HelpText = "Location of TextractorCLI.exe.",
-      Default = @".\Textractor\TextractorCLI.exe")]
+    [Option('t', "textractor", HelpText = "Folder contains TextractorCLI.exe.",
+      Default = @".\Textractor\")]
     public string TextractorLocation { get; set; }
 
     [Option('d', "directory", HelpText = "Directories to load dlls.")]
