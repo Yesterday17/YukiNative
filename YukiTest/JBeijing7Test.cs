@@ -3,7 +3,7 @@ using NUnit.Framework;
 using YukiNative.services;
 using YukiNative.utils;
 
-namespace TestYuki {
+namespace YukiTest {
   [TestFixture]
   public class JBeijing7Test {
     private const string JBeijing7Path = @"D:\Game\Gal\Tools\JBeijing7";
