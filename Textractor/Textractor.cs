@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Diagnostics;
+using System.IO;
 using System.Text;
 
 namespace Textractor {
@@ -9,9 +10,12 @@ namespace Textractor {
   public class Textractor {
     private readonly Process _cliProcess;
     private TextOutputObject _currentOutput;
-    public TextractorOutputDelegate OnTextractorOutput;
 
-    public Textractor(string cli) {
+    public TextractorOutputDelegate OnTextractorOutput;
+    public EventHandler OnExit;
+
+    public Textractor(string cli = @".\Textractor\TextractorCLI.exe") {
+      cli = Path.GetFullPath(cli);
       var cliInfo = new ProcessStartInfo {
         FileName = cli,
         UseShellExecute = false,
@@ -20,11 +24,14 @@ namespace Textractor {
         RedirectStandardError = false,
         CreateNoWindow = true,
         StandardOutputEncoding = Encoding.Unicode,
+        // WorkingDirectory = Path.GetDirectoryName(cli) ?? ".",
       };
 
       _cliProcess = new Process {
         StartInfo = cliInfo,
+        EnableRaisingEvents = true,
       };
+      _cliProcess.Exited += (sender, args) => { OnExit(sender, args); };
     }
 
     public void Start() {
@@ -42,7 +49,9 @@ namespace Textractor {
     }
 
     private void Execute(string cmd) {
-      _cliProcess.StandardInput.WriteLine(cmd);
+      var s = new StreamWriter(_cliProcess.StandardInput.BaseStream, new UnicodeEncoding(false, false));
+      s.WriteLine(cmd);
+      s.Flush();
     }
 
     public void Attach(int pid) {
@@ -77,11 +86,10 @@ namespace Textractor {
         _currentOutput.AppendText(line);
       }
 
-#if DEBUG
-      Console.WriteLine(_currentOutput.Text);
-#endif
-
-      OnTextractorOutput(_currentOutput);
+      Debug.WriteLine(_currentOutput.Text);
+      if (_currentOutput.IsGameText()) {
+        OnTextractorOutput(_currentOutput);
+      }
     }
   }
 }

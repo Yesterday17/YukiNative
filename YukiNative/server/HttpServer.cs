@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net;
 using System.Threading.Tasks;
-using YukiNative.services;
 
 namespace YukiNative.server {
   public delegate Task RequestDelegate(HttpServer server, Request request, Response response);
@@ -55,10 +55,8 @@ namespace YukiNative.server {
           continue;
         }
 
-#if DEBUG
-        Console.WriteLine("{0} {1}", request.Method, request.Path);
-        Console.WriteLine(request.Body);
-#endif
+        Debug.WriteLine("{0} {1}", request.Method, request.Path);
+        Debug.WriteLine(request.Body);
 
         try {
           await _routes[request.Path](this, request, response);

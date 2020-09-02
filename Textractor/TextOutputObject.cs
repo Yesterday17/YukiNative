@@ -1,4 +1,5 @@
 ﻿// ReSharper disable MemberCanBePrivate.Global
+
 namespace Textractor {
   public class TextOutputObject {
     public readonly ulong Handle;
@@ -42,6 +43,10 @@ namespace Textractor {
 
     private static ulong Hex2Num(string hex) {
       return ulong.Parse(hex, System.Globalization.NumberStyles.HexNumber);
+    }
+
+    public bool IsGameText() {
+      return !Name.Equals("Console") && !Name.Equals("Clipboard");
     }
   }
 }
