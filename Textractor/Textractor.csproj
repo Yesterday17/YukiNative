@@ -3,15 +3,16 @@
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
         <RootNamespace>Textractor</RootNamespace>
-        <AssemblyVersion>0.1.0</AssemblyVersion>
-        <FileVersion>0.1.0</FileVersion>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <AssemblyVersion>0.1.0.0</AssemblyVersion>
+        <FileVersion>0.1.0.0</FileVersion>
     </PropertyGroup>
-    
+
     <ItemGroup>
-        <Content Include="Textractor\texthook.dll" CopyToOutputDirectory="PreserveNewest" />
-        <Content Include="Textractor\TextractorCLI.exe" CopyToOutputDirectory="PreserveNewest" />
-        <Content Include="Textractor\x64\texthook.dll" CopyToOutputDirectory="PreserveNewest" />
-        <Content Include="Textractor\x64\TextractorCLI.exe" CopyToOutputDirectory="PreserveNewest" />
+        <Content Include="Textractor\texthook.dll" CopyToOutputDirectory="PreserveNewest"/>
+        <Content Include="Textractor\TextractorCLI.exe" CopyToOutputDirectory="PreserveNewest"/>
+        <Content Include="Textractor\x64\texthook.dll" CopyToOutputDirectory="PreserveNewest"/>
+        <Content Include="Textractor\x64\TextractorCLI.exe" CopyToOutputDirectory="PreserveNewest"/>
     </ItemGroup>
 
 </Project>
