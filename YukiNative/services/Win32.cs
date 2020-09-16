@@ -124,7 +124,7 @@ namespace YukiNative.services {
             }
           }
 
-          Thread.Sleep(0);
+          Thread.Sleep(1);
         }
       }
 
