@@ -89,6 +89,20 @@ namespace YukiNative.services {
 
     public static readonly RequestDelegate EventRestoreService = NewEventService(Events.SystemMinimizeEnd);
 
+    /////////////////////////////////////////////////////////////////////////
+
+    [DllImport("user32.dll")]
+    private static extern bool SetForegroundWindow(IntPtr hWnd);
+
+    public static void EventFocusService(HttpServer server, Request request, Response response) {
+      var pid = int.Parse(request.Body);
+      var p = Process.GetProcessById(pid);
+      var hwnd = p.MainWindowHandle;
+      SetForegroundWindow(hwnd);
+    }
+
+    /////////////////////////////////////////////////////////////////////////
+
     public static class MessageLoop {
       private static readonly Queue<Tuple<Events, uint, Action<int>>> Tasks =
         new Queue<Tuple<Events, uint, Action<int>>>();

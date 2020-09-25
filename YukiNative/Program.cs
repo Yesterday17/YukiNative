@@ -43,6 +43,7 @@ namespace YukiNative {
             .AddRoute("/win32/exit", Win32.WatchProcessExitService)
             .AddRoute("/win32/minimize", Win32.EventMinimizeService)
             .AddRoute("/win32/restore", Win32.EventRestoreService)
+            .AddRoute("/win32/focus", Win32.EventFocusService)
             .AddRoute("/ping", (_, __, response) => response.WriteText("pong"))
             .AddRoute("/shutdown", (httpServer, request, response) => {
               // Close response manually before server stops
